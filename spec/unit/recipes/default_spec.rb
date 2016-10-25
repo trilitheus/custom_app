@@ -7,14 +7,19 @@
 require 'spec_helper'
 
 describe 'custom_app::default' do
-  context 'When all attributes are default, on an unspecified platform' do
-    let(:chef_run) do
+  context 'When all attributes are default, on centos 7.2.1511' do
+    cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new
       runner.converge(described_recipe)
     end
 
-    it 'converges successfully' do
-      expect { chef_run }.to_not raise_error
+    before do
+      stub_command('/usr/local/bin/gem -v | grep ^2.4.8').and_return(nil)
+      stub_command('git --version >/dev/null').and_return('git version 2.7.4')
+    end
+
+    it 'include the custom_ruby cookbook' do
+      expect(chef_run).to include_recipe('custom_ruby::default')
     end
   end
 end
