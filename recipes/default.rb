@@ -1,1 +1,1 @@
-include_recipe 'custom_ruby'
+include_recipe 'custom_app::_required_recipes'
