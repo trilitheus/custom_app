@@ -10,7 +10,7 @@ end
 
 def custom_cookbook(name, options = {})
   cookbook(name, {
-    git: "git@github.com:trilitheus/#{name}.git"
+    git: "https://github.com/trilitheus/#{name}.git"
   }.merge(options))
 end
 
